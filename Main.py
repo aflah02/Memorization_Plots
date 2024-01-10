@@ -9,4 +9,5 @@ st.set_page_config(
 st.title('Plots for Memorization Experiments')
 
 st.markdown("This is a Streamlit dashboard for visualizing the results of the memorization experiments.")
+
 st.markdown("Different pages (accessible from the sidebar) contain results for different experiments.")

@@ -3,7 +3,13 @@ import pandas as pd
 import plotly
 import plotly.express as px
 
+st.set_page_config(page_title="Freezing Subset", page_icon="2️⃣")
+
 def main():
+    st.title("Entropy Plots")
+    st.markdown("Entropy results can be found [here](https://docs.google.com/document/d/1W9Jwf5W0QrhMjYLA18KP5ZCwkMsElVVFhwQD-Es3g34/edit?usp=sharing)")
+    st.title("Correctness Plots")
+    st.markdown("Correctness results can be found [here](https://docs.google.com/document/d/1jLW62VSt_Z9n4HdpfVypa183nptfvKrOHwNzfrH4b0U/edit?usp=sharing)")
     st.title("Loss Comparison")
     df = pd.read_csv("data/loss_data_freezing_plots.csv")
     cols = df.columns.tolist()
