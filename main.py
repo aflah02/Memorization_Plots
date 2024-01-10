@@ -36,8 +36,8 @@ for method, suffix in zip(chosen_method, suffixes_for_chosen_methods):
         for string_len in chosen_string_len:
             file_name = build_file_name(string_len, method, string_type, suffix)
             title = file_name
-            # remove accuracy_plots_fixed/accuracy_ from start
-            title = title[len('accuracy_plots_fixed/accuracy_'):]
+            # remove accuracy_plots_peft_methods/accuracy_ from start
+            title = title[len('accuracy_plots_peft_methods/accuracy_'):]
             # remove .png from end
             title = title[:-len('.png')]
             st.markdown('#### ' + title)
