@@ -5,10 +5,48 @@ import plotly.express as px
 
 st.set_page_config(page_title="Memorizing Using Intermediate Checkpoints", page_icon="5️⃣")
 
+def get_col_name(str_type, size, ckpt):
+    return f"{str_type} pythia-1b_{ckpt} full-finetuning {size}x1 Epochs- 100 BSize- 1 Seed- 42"
+
 def main():
     st.title("Loss Comparison")
-    df = pd.read_csv("data/losses_memorization_intermediate_checkpoints.csv")
-    st.table(df) 
+
+    if 'page_5_data' not in st.session_state:
+        df = pd.read_csv("data/losses_memorization_intermediate_checkpoints.csv")
+        st.session_state.page_5_data = df
+    else:
+        df = st.session_state.page_5_data
+
+    str_types = ['random_strings']
+    sizes = [16, 32, 64, 128, 256, 512, 1024]
+    ckpts = [0,1,4,16,64,256,1000, 2000, 10000, 50000, 100000, 143000]
+    # for i in range(2000, 144000, 1000):
+    #     ckpts.append(i)
+    
+    for str_type in str_types:
+        for size in sizes:
+            col_names = [get_col_name(str_type, size, ckpt) for ckpt in ckpts]
+            subset_df = df[col_names]
+            # plot
+            fig = px.line(subset_df, y=col_names, x=subset_df.index)
+            # set x and y axis labels
+            fig.update_layout(
+                xaxis_title="Epoch",
+                yaxis_title="Loss",
+            )
+            # change name in legend
+            fig.for_each_trace(lambda t: t.update(name=t.name.split(" ")[1]))
+
+            # title
+            fig.update_layout(title=f"Loss for {str_type} of size {size}")
+
+            # change legend title to Layer
+            fig.update_layout(legend_title_text='Layer')
+            st.plotly_chart(fig)
+
+
+
+
     # cols = df.columns.tolist()
     # # col name must contain unfreeze
     # cols = [x for x in cols if "unfreeze" in x]
