@@ -11,8 +11,10 @@ st.title('Accuracy Plots for PEFT Methods')
 string_lens = [16,32,64,128,256,512,1024]
 methods = ['full-finetuning', 'ia3', 'lora', 'p-tuning', 'prefix-tuning', 'prompt-tuning']
 suffixes = ['', 'Target modules- q_proj,v_proj Feed forward modules- down_proj', 
-            'r- 8 alpha- 32 dropout- 0.1', 'Encoder hidden size- 128 Num virtual tokens- 8',
-            'Num virtual tokens- 8 Init text- This is a test']
+            'r- 8 alpha- 32 dropout- 0.1',
+             'Encoder hidden size- 128 Num virtual tokens- 8',
+            'Num virtual tokens- 8', 
+            "Num virtual tokens- 8 Init text- This is a test"]
 string_types = ['random_strings', 'non_random_strings']
 
 chosen_string_len = st.multiselect('Choose string length', string_lens)
