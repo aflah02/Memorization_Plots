@@ -24,61 +24,63 @@ def main():
     # for i in range(2000, 144000, 1000):
     #     ckpts.append(i)
     
-    str_type = 'non_random_strings'
     for size in sizes:
-        col_names = [get_col_name(str_type, size, ckpt) for ckpt in ckpts]
-        subset_df = df[col_names]
-        # plot
-        fig = plt.figure()
+        col_names_random = [get_col_name('random_strings', size, ckpt) for ckpt in ckpts]
+        col_name_non_random = [get_col_name('non_random_strings', size, ckpt) for ckpt in ckpts]
+        subset_df_random = df[col_names_random]
+        subset_df_non_random = df[col_name_non_random]
 
-        data = subset_df.values
+        col1, col2 = st.columns(2)
 
-        # plot each column
-        for i in range(data.shape[1]):
-            plt.plot(data[:, i], label=subset_df.columns[i].split(" ")[1])
+        with col1:
+            # plot
+            fig = plt.figure()
 
-        # set x and y axis labels
-        plt.xlabel("Epoch")
-        plt.ylabel("Loss")
+            data = subset_df_random.values
 
-        # title
-        plt.title(f"Loss for {str_type} of size {size}")
+            # plot each column
+            for i in range(data.shape[1]):
+                plt.plot(data[:, i], label=subset_df_random.columns[i].split(" ")[1])
 
-        # change legend title to Layer
-        plt.legend(title='Layer')
+            # set x and y axis labels
+            plt.xlabel("Epoch")
+            plt.ylabel("Loss")
 
-        # reduce legend size
-        plt.legend(prop={'size': 6})
+            # title
+            plt.title(f"Loss for random strings of size {size}")
 
-        st.pyplot(fig)
+            # change legend title to Layer
+            plt.legend(title='Layer')
 
-    str_type = 'random_strings'
-    for size in sizes:
-        col_names = [get_col_name(str_type, size, ckpt) for ckpt in ckpts]
-        subset_df = df[col_names]
-        # plot
-        fig = plt.figure()
+            # reduce legend size
+            plt.legend(prop={'size': 6})
 
-        data = subset_df.values
+            st.pyplot(fig)
 
-        # plot each column
-        for i in range(data.shape[1]):
-            plt.plot(data[:, i], label=subset_df.columns[i].split(" ")[1])
+        with col2:
+            # plot
+            fig = plt.figure()
 
-        # set x and y axis labels
-        plt.xlabel("Epoch")
-        plt.ylabel("Loss")
+            data = subset_df_non_random.values
 
-        # title
-        plt.title(f"Loss for {str_type} of size {size}")
+            # plot each column
+            for i in range(data.shape[1]):
+                plt.plot(data[:, i], label=subset_df_non_random.columns[i].split(" ")[1])
 
-        # change legend title to Layer
-        plt.legend(title='Layer')
+            # set x and y axis labels
+            plt.xlabel("Epoch")
+            plt.ylabel("Loss")
 
-        # reduce legend size
-        plt.legend(prop={'size': 6})
+            # title
+            plt.title(f"Loss for non-random strings of size {size}")
 
-        st.pyplot(fig)
+            # change legend title to Layer
+            plt.legend(title='Layer')
+
+            # reduce legend size
+            plt.legend(prop={'size': 6})
+
+            st.pyplot(fig)
 
 if __name__ == "__main__":
     main()
